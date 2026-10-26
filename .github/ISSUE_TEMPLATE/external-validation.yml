@@ -1,0 +1,45 @@
+name: External application validation
+description: Record an actual trial against an independently maintained RAG application
+title: 'Application validation: '
+body:
+  - type: input
+    id: application
+    attributes:
+      label: Application repository and exact revision
+      description: Identify the independent application, rather than a RecallFSCK fixture.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: RecallFSCK, Python, backend and OS versions
+    validations:
+      required: true
+  - type: textarea
+    id: integration
+    attributes:
+      label: Actual APIs, adapter and scheduling hooks
+      description: Link the integration diff and describe what changed in the application.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Commands, schedule, timing settings and observed evidence
+      description: Include a fresh replay result and synthetic artifacts. Remove private documents and credentials.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Covered paths, unsupported scenarios and cleanup
+      description: Distinguish actual application results from supplied fixture results.
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Setup effort, findings and maintainer feedback
+      description: Include actual feedback only; record consent before quoting others.
+    validations:
+      required: true

@@ -47,5 +47,6 @@ and `launch.md` for the prepared launch draft. No external outreach was sent.
 Model migration changes known same-dimensional synthetic vectors. Tests do not
 establish semantic answer quality, physical erasure, distributed linearizability,
 untested query paths, real dimension-changing rebuilds or indefinite absence.
-The PyPI name returned HTTP 404 on October 26, 2026; that is not name reservation,
-trademark clearance or unique-prior-art proof.
+The next priority is independent testing and adoption, rather than additional
+features. The published candidate remains 0.2.0rc2. Stable 0.2.0 readiness is
+tracked in `releasing.md`; no independent validation is claimed yet.

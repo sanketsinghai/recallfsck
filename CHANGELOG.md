@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Remove the obsolete package-name availability note from the next release's PyPI description.
+- Add a first-run guide, independent-application evidence template and stable 0.2.0 readiness criteria.
+
 ## 0.2.0rc2
 
 - Fix hosted CI to use the installed HTTP application module.

@@ -16,6 +16,11 @@ recallfsck demo
 [PyPI release](https://pypi.org/project/recallfsck/0.2.0rc2/) ·
 [Publishing checks](https://github.com/sanketsinghai/recallfsck/actions/runs/40375794561)
 
+New to the project? Follow the [first-run guide](docs/try-it.md) to install,
+inspect the expected failure and replay it without Docker or API keys.
+The current release is a candidate; use the explicit version above, or
+`python -m pip install --pre recallfsck` to include prereleases.
+
 The demo runs ten scenarios against two applications. The deliberately buggy
 worker fails three races: delete/index, replacement/index, and migration/index.
 The corrected worker passes all ten. Demo exits 0 only when that exact pattern is
@@ -130,9 +135,8 @@ linearizability, production authorization policy or arbitrary future absence.
 There is no production scanning mode. Saved reports contain test document text;
 use synthetic inputs. No hosted service or API keys are required for the demos.
 
-Repository: https://github.com/sanketsinghai/recallfsck . The PyPI name returned
-HTTP 404 when checked on October 26, 2026; this does not reserve the name or
-establish trademark clearance.
+Repository: https://github.com/sanketsinghai/recallfsck .
+Package: https://pypi.org/project/recallfsck/ .
 MIT license; optional dependencies keep their respective licenses.
 
 ## Real LangChain integration
