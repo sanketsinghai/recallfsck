@@ -1,37 +1,34 @@
-# RecallFSCK 0.2.0rc1
+# RecallFSCK 0.2.0rc2
 
 Stateful lifecycle integrity checks for RAG indexes, with replayable evidence.
 
-Implemented:
-- Ten lifecycle scenarios: create, update, metadata, delete, idempotency,
-  isolation, delete/index, update/index, migration and migration/index.
-- Actual Qdrant, Chroma and pgvector adapters, plus a zero-service SQLite demo.
-- Real LangChain/Chroma ingestion and retrieval integration.
-- Controlled scheduling, finite consistency windows, independent reference state.
-- Hypothesis discovery/shrinking, JSON replay, minimization and pytest integration.
-- JSON/HTML/JUnit evidence and a runnable local HTTP application.
+This candidate includes the installed HTTP demo correction and the first PyPI
+publication workflow after successful hosted CI.
 
-Install the attached wheel using Python 3.11+:
+Implemented:
+- Ten lifecycle scenarios covering create, update, metadata, delete, idempotency,
+  isolation, controlled indexing races and synthetic model migration.
+- Real Qdrant, Chroma, pgvector and LangChain/Chroma API integrations.
+- Independent reference state, controlled scheduling and finite consistency windows.
+- Hypothesis discovery/shrinking, replay, minimization and pytest integration.
+- JSON/HTML/JUnit evidence and a runnable HTTP application.
+
+Install the prerelease after the PyPI publication job succeeds:
 
 ```sh
-python -m pip install recallfsck-0.2.0rc1-py3-none-any.whl
+python -m pip install 'recallfsck==0.2.0rc2'
 recallfsck demo
 ```
 
-For all integrations, install `.[all,test]` from the source checkout.
-The demo intentionally reports three buggy-worker failures and ten corrected-worker
-passes. The other seven buggy-worker cases pass. Its command exits zero only when
-this expected pattern is actually observed. Saved failures replay with exit code 1.
+The demo intentionally produces three buggy-worker failures and ten corrected-worker
+passes. Seven other buggy-worker checks pass. Demo exits zero only when the
+expected pattern is observed. Failure replay returns exit code 1.
 
-Validation: **55 tests and 120 repeated subtests passed locally** with actual
-SQLite, Qdrant, Chroma, pgvector and LangChain APIs. Wheel and source distribution
-passed `twine check`; an installed wheel was exercised outside the source checkout.
+Validation: Python 3.11, 3.12 and 3.13 passed hosted CI. The full real-database suite
+passed **55 tests and 120 repeated subtests**, including LangChain integration.
+See https://github.com/sanketsinghai/recallfsck/actions/runs/40374759837 .
 
-Known release blockers: GitHub-hosted CI was attempted but the account's billing
-lock prevented all jobs from starting. This is a locally tested prerelease, not a
-claim of green hosted CI. PyPI publishing needs owner-side trusted-publisher setup.
-No independent user feedback or production application validation is claimed.
-
-Use disposable test services and synthetic documents only. Passing finite checks
-does not prove physical erasure, indefinite absence or arbitrary distributed safety.
-See README.md and docs/roadmap.md for precise scope and current outcome status.
+Only disposable services and synthetic documents are supported. Passing finite
+checks does not prove physical erasure, indefinite absence, arbitrary distributed
+safety or production application correctness. No independent user feedback is
+claimed. See README.md and docs/roadmap.md for scope and remaining adoption work.

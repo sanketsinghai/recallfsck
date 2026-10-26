@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0rc2
+
+- Fix hosted CI to use the installed HTTP application module.
+- Verify Python 3.11, 3.12 and 3.13 plus actual database integrations on GitHub Actions.
+- Prepare the first PyPI upload through the registered trusted publisher.
+
 ## 0.2.0rc1
 
 - Add Qdrant, Chroma and pgvector document/vector store adapters.

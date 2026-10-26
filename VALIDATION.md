@@ -75,3 +75,12 @@ No job started. GitHub reported: “The job was not started because your account
 locked due to a billing issue.” This is an account-side blocker, not a passed or
 executed hosted suite. Local integration tests, including LangChain/Chroma,
 passed 55 tests and 120 repeated subtests.
+
+## Hosted CI recovered and passed
+
+The billing lock is resolved and the installed HTTP demo command was fixed in
+PR #9. Main passed the Python 3.11/3.12/3.13 matrix and actual database jobs:
+https://github.com/sanketsinghai/recallfsck/actions/runs/40374759837 .
+The full database suite passed 55 tests and 120 repeated subtests.
+Version 0.2.0rc2 includes that workflow correction; product runtime behavior is
+unchanged from the locally and subsequently remotely verified candidate.
