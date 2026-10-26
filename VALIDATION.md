@@ -84,3 +84,16 @@ https://github.com/sanketsinghai/recallfsck/actions/runs/40374759837 .
 The full database suite passed 55 tests and 120 repeated subtests.
 Version 0.2.0rc2 includes that workflow correction; product runtime behavior is
 unchanged from the locally and subsequently remotely verified candidate.
+
+## PyPI 0.2.0rc2 publication verified
+
+The trusted-publishing workflow completed all checks, build and upload:
+https://github.com/sanketsinghai/recallfsck/actions/runs/40375794561 .
+The package is public at https://pypi.org/project/recallfsck/0.2.0rc2/ .
+
+A fresh virtual environment installed `recallfsck==0.2.0rc2` from public PyPI,
+without using the source checkout. The twenty-case demo matched its expected
+red/green outcomes; saved failure replay returned the expected exit code 1;
+the packaged HTTP demo passed; `pip check` reported no broken dependencies.
+Both distribution SHA-256 hashes matched the exact workflow build artifacts.
+See `docs/pypi-publication.json` for a machine-readable receipt.

@@ -16,9 +16,10 @@ https://github.com/sanketsinghai/recallfsck
    distributions and uses OIDC trusted publishing. Passwords and API tokens are
    not stored in the repository or requested in chat.
 
-The owner has created a PyPI account and confirmed that the pending trusted
-publisher was added. The workflow's successful upload and an independent package
-download are required before recording publication as complete.
+Version 0.2.0rc2 is published at https://pypi.org/project/recallfsck/0.2.0rc2/ .
+The workflow completed successfully and a clean public-PyPI installation passed
+the demo, failure replay, HTTP demo and dependency check. Distribution hashes
+match the workflow artifacts. See `pypi-publication.json` for the receipt.
 
 Name checks are point-in-time observations, not reservations or trademark
 clearance. `dependency-inventory.json` records installed validation-environment
