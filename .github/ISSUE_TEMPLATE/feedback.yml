@@ -1,0 +1,34 @@
+name: Independent installation feedback
+description: Record your own attempt to install and run RecallFSCK
+title: 'Installation feedback: '
+body:
+  - type: input
+    id: platform
+    attributes:
+      label: Operating system and Python version
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Commands you actually ran
+      description: Remove credentials and private documents.
+    validations:
+      required: true
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Outcome
+      options:
+        - Demo reproduced the expected failures and passes
+        - Installation failed
+        - Demo produced unexpected results
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Observed results and confusing instructions
+      description: Include synthetic evidence or error output, not guesses.
+    validations:
+      required: true

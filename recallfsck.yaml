@@ -1,0 +1,17 @@
+backend: sqlite
+worker: fixed
+consistency_seconds: 0.1
+monitor_seconds: 0.02
+poll_seconds: 0.01
+output: report
+scenarios:
+- create
+- update
+- metadata
+- delete
+- idempotency
+- isolation
+- delete-during-index
+- update-during-index
+- migration
+- migration-during-index

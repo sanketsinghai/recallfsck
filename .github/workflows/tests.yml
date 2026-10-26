@@ -1,0 +1,78 @@
+name: tests
+on:
+  push:
+  pull_request:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '${{ matrix.python }}'
+      - run: python -m pip install -e '.[test]'
+      - run: ruff check .
+      - run: ruff format --check recallfsck tests examples
+      - run: python -m pytest -q --junitxml=report/tests.xml
+      - run: recallfsck demo --output report/sqlite
+      - run: recallfsck demo --app examples.http_application:create_application --output report/http
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unit-evidence-${{ matrix.python }}
+          path: report/
+  databases:
+    runs-on: ubuntu-latest
+    services:
+      qdrant:
+        image: qdrant/qdrant:v1.13.4
+        ports: ['6333:6333']
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_PASSWORD: recallfsck-local-only
+          POSTGRES_DB: recallfsck
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres -d recallfsck"
+          --health-interval 2s --health-timeout 2s --health-retries 30
+    env:
+      RECALLFSCK_QDRANT_URL: http://localhost:6333
+      RECALLFSCK_PGVECTOR_URL: postgresql://postgres:recallfsck-local-only@localhost:5432/recallfsck
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -e '.[all,test]'
+      - name: Prepare disposable pgvector database and await Qdrant
+        run: |
+          python - <<'PY'
+          import os, time, urllib.request
+          import psycopg
+          with psycopg.connect(os.environ['RECALLFSCK_PGVECTOR_URL'], autocommit=True) as conn:
+              conn.execute('CREATE EXTENSION IF NOT EXISTS vector')
+          for attempt in range(30):
+              try:
+                  urllib.request.urlopen(os.environ['RECALLFSCK_QDRANT_URL'] + '/readyz', timeout=2).close()
+                  break
+              except OSError:
+                  if attempt == 29:
+                      raise
+                  time.sleep(1)
+          PY
+      - run: python -m pytest -q --junitxml=report/tests.xml
+      - run: recallfsck demo --backend qdrant --output report/qdrant
+      - run: recallfsck demo --backend chroma --output report/chroma
+      - run: recallfsck demo --backend pgvector --url "$RECALLFSCK_PGVECTOR_URL" --output report/pgvector
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: database-evidence
+          path: report/

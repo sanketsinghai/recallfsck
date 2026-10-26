@@ -1,0 +1,225 @@
+{
+  "schema_version": 2,
+  "scenario": "delete-during-index",
+  "worker": "buggy",
+  "schedule": [
+    "insert",
+    "start_index",
+    "delete",
+    "resume_index",
+    "observe"
+  ],
+  "status": "FAIL",
+  "history": [
+    {
+      "step": 1,
+      "operation": "insert",
+      "expected": [
+        {
+          "id": 42,
+          "tenant": "alpha",
+          "text": "original fact",
+          "revision": 1,
+          "model": "v1"
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "operation": "start_index",
+      "expected": [
+        {
+          "id": 42,
+          "tenant": "alpha",
+          "text": "original fact",
+          "revision": 1,
+          "model": "v1"
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "operation": "delete",
+      "expected": []
+    },
+    {
+      "step": 4,
+      "operation": "resume_index",
+      "expected": []
+    },
+    {
+      "step": 5,
+      "operation": "observe",
+      "expected": []
+    }
+  ],
+  "checks": [
+    {
+      "step": 5,
+      "expected": [],
+      "observations": [
+        {
+          "path": "index.scan",
+          "rows": [
+            {
+              "id": 42,
+              "tenant": "alpha",
+              "text": "original fact",
+              "revision": 1,
+              "model": "v1"
+            }
+          ]
+        },
+        {
+          "path": "application.retrieve",
+          "tenant": "alpha",
+          "model": "v1",
+          "rows": [
+            {
+              "id": 42,
+              "tenant": "alpha",
+              "text": "original fact",
+              "revision": 1,
+              "model": "v1"
+            }
+          ]
+        },
+        {
+          "path": "application.retrieve",
+          "tenant": "alpha",
+          "model": "v2",
+          "rows": []
+        },
+        {
+          "path": "application.retrieve",
+          "tenant": "beta",
+          "model": "v1",
+          "rows": []
+        },
+        {
+          "path": "application.retrieve",
+          "tenant": "beta",
+          "model": "v2",
+          "rows": []
+        },
+        {
+          "path": "application.retrieve",
+          "tenant": "outsider",
+          "model": "v1",
+          "rows": []
+        },
+        {
+          "path": "application.retrieve",
+          "tenant": "outsider",
+          "model": "v2",
+          "rows": []
+        }
+      ],
+      "failures": [
+        {
+          "path": "index.scan",
+          "tenant": null,
+          "model": null,
+          "expected": [],
+          "observed": [
+            {
+              "id": 42,
+              "tenant": "alpha",
+              "text": "original fact",
+              "revision": 1,
+              "model": "v1"
+            }
+          ]
+        },
+        {
+          "path": "application.retrieve",
+          "tenant": "alpha",
+          "model": "v1",
+          "expected": [],
+          "observed": [
+            {
+              "id": 42,
+              "tenant": "alpha",
+              "text": "original fact",
+              "revision": 1,
+              "model": "v1"
+            }
+          ]
+        }
+      ],
+      "timing": {
+        "attempts": 11,
+        "samples": [
+          {
+            "elapsed_seconds": 2.7999980375170708e-05,
+            "matching": false
+          },
+          {
+            "elapsed_seconds": 0.011124334007035941,
+            "matching": false
+          },
+          {
+            "elapsed_seconds": 0.02167258400004357,
+            "matching": false
+          },
+          {
+            "elapsed_seconds": 0.03272391698556021,
+            "matching": false
+          },
+          {
+            "elapsed_seconds": 0.04381766699953005,
+            "matching": false
+          },
+          {
+            "elapsed_seconds": 0.05491879198234528,
+            "matching": false
+          },
+          {
+            "elapsed_seconds": 0.06600875000003725,
+            "matching": false
+          },
+          {
+            "elapsed_seconds": 0.07724929199321195,
+            "matching": false
+          },
+          {
+            "elapsed_seconds": 0.08837083401158452,
+            "matching": false
+          },
+          {
+            "elapsed_seconds": 0.09948662499664351,
+            "matching": false
+          },
+          {
+            "elapsed_seconds": 0.11067924997769296,
+            "matching": false
+          }
+        ],
+        "elapsed_seconds": 0.11067924997769296
+      }
+    }
+  ],
+  "first_divergence": {
+    "path": "index.scan",
+    "tenant": null,
+    "model": null,
+    "expected": [],
+    "observed": [
+      {
+        "id": 42,
+        "tenant": "alpha",
+        "text": "original fact",
+        "revision": 1,
+        "model": "v1"
+      }
+    ]
+  },
+  "scope": "Observed synthetic documents on these retrieval paths, schedules and time windows only. No physical erasure, distributed race safety or arbitrary embedding-model guarantee.",
+  "settings": {
+    "consistency_seconds": 0.1,
+    "monitor_seconds": 0.02,
+    "poll_seconds": 0.01
+  },
+  "backend": "sqlite",
+  "application": "fixture"
+}
