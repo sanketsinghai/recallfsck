@@ -21,7 +21,7 @@ jobs:
       - run: ruff format --check recallfsck tests examples
       - run: python -m pytest -q --junitxml=report/tests.xml
       - run: recallfsck demo --output report/sqlite
-      - run: recallfsck demo --app examples.http_application:create_application --output report/http
+      - run: recallfsck demo --app recallfsck.demo_http:create_application --output report/http
       - uses: actions/upload-artifact@v4
         if: always()
         with:
