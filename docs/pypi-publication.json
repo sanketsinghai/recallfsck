@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0rc2",
+  "project": "https://pypi.org/project/recallfsck/0.2.0rc2/",
+  "tag": "v0.2.0rc2",
+  "commit": "9f5df243fd59262c27b0ab8676c0525f715647ef",
+  "workflow": "https://github.com/sanketsinghai/recallfsck/actions/runs/40375794561",
+  "checks": "Python 3.11/3.12/3.13; actual database suite; build and trusted publication all succeeded",
+  "clean_install": "Installed from public PyPI in a new virtual environment outside the checkout; twenty-case demo, failing replay, packaged HTTP demo and pip check passed",
+  "distributions": [
+    {
+      "filename": "recallfsck-0.2.0rc2-py3-none-any.whl",
+      "sha256": "ddc019756a6cc7e0d4ee17e257afa431557a069eaec4cddaf849c85a2c898eb0",
+      "url": "https://files.pythonhosted.org/packages/ed/d3/9df5b3c28c84ddf91d0653ba501825de1f638e7fda3a2da1eb739b0b78c5/recallfsck-0.2.0rc2-py3-none-any.whl"
+    },
+    {
+      "filename": "recallfsck-0.2.0rc2.tar.gz",
+      "sha256": "712680713e9cf9253e5b12dd55b3b509f50fb093d24c72b8ea3a44252fd5641e",
+      "url": "https://files.pythonhosted.org/packages/63/42/c161efdaf4918009f6f9c4ece569df70e255036760ffff6fb135d5b5b9fe/recallfsck-0.2.0rc2.tar.gz"
+    }
+  ]
+}

@@ -6,12 +6,15 @@ retrieval with an independent reference model, and saves a replayable failure.
 
 ## One-command demo
 
-From this repository, Python 3.11+:
+Install the published release candidate with Python 3.11+:
 
 ```sh
-python -m pip install -e '.[test]'
+python -m pip install 'recallfsck==0.2.0rc2'
 recallfsck demo
 ```
+
+[PyPI release](https://pypi.org/project/recallfsck/0.2.0rc2/) ·
+[Publishing checks](https://github.com/sanketsinghai/recallfsck/actions/runs/40375794561)
 
 The demo runs ten scenarios against two applications. The deliberately buggy
 worker fails three races: delete/index, replacement/index, and migration/index.

@@ -20,12 +20,20 @@ as complete simply because implementation exists.
 | Private security reporting | Complete: GitHub private vulnerability reporting enabled |
 | Release distributions | Complete: wheel/sdist built, checked, independently installed and exercised |
 | Hosted CI execution | Complete: Python 3.11/3.12/3.13 and real database jobs passed on main |
-| PyPI publishing | Owner confirmed trusted publisher added; 0.2.0rc2 publication is being prepared |
+| PyPI publishing | Complete: 0.2.0rc2 published through trusted publishing; clean PyPI installation, demo, replay and HTTP checks passed |
 | Independent developer feedback | Pending: no participants have provided results yet |
 | External user's production/staging application | Pending: LangChain API coverage is not independent validation of an existing user's application |
 
 Successful hosted CI:
 https://github.com/sanketsinghai/recallfsck/actions/runs/40374759837
+
+Successful publication:
+https://github.com/sanketsinghai/recallfsck/actions/runs/40375794561
+
+Published package:
+https://pypi.org/project/recallfsck/0.2.0rc2/
+Distribution hashes were verified against public PyPI metadata; see
+`pypi-publication.json` for the receipt.
 
 The earlier billing lock is resolved. PR #9 fixed the installed HTTP demo command.
 The full database job passed **55 tests and 120 repeated subtests**, including
