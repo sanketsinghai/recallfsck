@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Implement ReferenceState",
+    "url": "https://github.com/sanketsinghai/recallfsck/issues/1",
+    "status": "closed: implemented"
+  },
+  {
+    "title": "Build Qdrant adapter",
+    "url": "https://github.com/sanketsinghai/recallfsck/issues/2",
+    "status": "closed: implemented"
+  },
+  {
+    "title": "Add lifecycle scenario runner",
+    "url": "https://github.com/sanketsinghai/recallfsck/issues/3",
+    "status": "closed: implemented"
+  },
+  {
+    "title": "Implement race-test scheduler",
+    "url": "https://github.com/sanketsinghai/recallfsck/issues/4",
+    "status": "closed: implemented"
+  },
+  {
+    "title": "Export CI failure evidence",
+    "url": "https://github.com/sanketsinghai/recallfsck/issues/5",
+    "status": "closed: implemented"
+  }
+]

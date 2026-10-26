@@ -65,3 +65,13 @@ application. Independent user feedback, PyPI publication, trademark clearance,
 physical erasure and production safety are not established. Synthetic model migration changes known same-dimensional vectors;
 it does not validate real embedding quality or dimension-changing rebuilds.
 See `docs/roadmap.md` for outstanding external release milestones.
+
+## Public repository and hosted CI attempt
+
+Source is published at https://github.com/sanketsinghai/recallfsck .
+Hosted CI was attempted at
+https://github.com/sanketsinghai/recallfsck/actions/runs/40370585154 .
+No job started. GitHub reported: “The job was not started because your account is
+locked due to a billing issue.” This is an account-side blocker, not a passed or
+executed hosted suite. Local integration tests, including LangChain/Chroma,
+passed 55 tests and 120 repeated subtests.

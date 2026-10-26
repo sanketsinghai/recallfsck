@@ -1,38 +1,42 @@
-# Original 90-day roadmap: delivery status
+# 90-day outcome status
 
-This implements the engineering scope as a local release candidate. A roadmap's
-adoption and public-launch milestones require evidence from outside this workspace.
-They are not replaced with synthetic claims.
+Repository: https://github.com/sanketsinghai/recallfsck
 
-| Original stage | Delivered | External milestone still pending |
-| --- | --- | --- |
-| Days 1–7: technical proof | Buggy/correct workers, deterministic create/delete/index races, real Qdrant evidence | None for the bounded synthetic experiment |
-| Days 8–14: testing core | Independent document model, operation histories, assertions, schema-versioned JSON replay | None for the implemented API |
-| Days 15–30: first release | Qdrant/Chroma adapters, pytest fixture, JSON/HTML/JUnit, installation and docs | Unfamiliar developer installation feedback |
-| Days 31–60: reliability | Hypothesis search/shrinking, replay minimizer, pgvector, deadlines/monitoring, isolation and GitHub Actions | CI execution on an actual hosted repository |
-| Days 61–90: release preparation | Local HTTP demonstration, application adapter template, migration checks, release candidate metadata, changelog, build workflow and community files | Public release destination, independent feedback and real external application integration |
+The engineering scope is implemented and locally tested. Public infrastructure
+and adoption outcomes have separate evidence and blockers; they are not counted
+as complete simply because implementation exists.
 
-The suite tests all seven proposed invariant families. Model migration uses
-same-dimensional synthetic embeddings; real providers and dimension-changing
-rebuilds are not claimed. Application integration is an explicit adapter contract;
-a universal no-hook integration across arbitrary frameworks remains unrealistic.
+| Outcome | Status and evidence |
+| --- | --- |
+| Deterministic red/green proof | Complete: buggy/correct fixtures, three controlled races |
+| Reference model and replay | Complete: full records, operation history, schema-2 reproductions |
+| Qdrant, Chroma and pgvector | Complete: real integrations and cleanup tested |
+| Lifecycle invariants | Complete for the documented synthetic scope: ten scenarios |
+| Failure discovery and shrinking | Complete: Hypothesis search plus deletion-based minimization |
+| Consistency windows and isolation | Complete: convergence, bounded monitoring and filtered retrieval checks |
+| pytest, reports and demo | Complete: pytest fixture, JSON/HTML/JUnit and real HTTP boundary |
+| Real ecosystem integration | Complete: twenty cases using actual LangChain/Chroma ingestion, deletion, embedding and retrieval APIs |
+| Repository and original five issues | Complete: public source; implementation issues #1–#5 created and closed |
+| Private security reporting | Complete: GitHub private vulnerability reporting enabled |
+| Release distributions | Complete: wheel/sdist built, checked, independently installed and exercised |
+| Hosted CI execution | Blocked: GitHub account billing lock prevents jobs from starting |
+| PyPI publishing | Blocked: owner needs a PyPI account and pending trusted-publisher registration |
+| Independent developer feedback | Pending: no participants have provided results yet |
+| External user's production/staging application | Pending: LangChain API coverage is not independent validation of an existing user's application |
 
-The first five proposed implementation issues are represented in this code:
-reference state (`suite.py`), Qdrant adapter (`stores.py`), scenario runner
-(`suite.py`), scheduler (asyncio pause/resume events), and CI evidence
-(`reporting.py`, workflows). No GitHub issues were filed because no remote
-repository has been configured.
+Hosted CI attempt:
+https://github.com/sanketsinghai/recallfsck/actions/runs/40370585154
 
-## Launch checklist requiring the owner or independent contributors
+GitHub's exact annotation: “The job was not started because your account is locked
+due to a billing issue.” No hosted test step ran. The local suite passed **55 tests
+and 120 repeated subtests**, including real databases and LangChain integration.
 
-- Select/create a hosted repository and verify name/package/trademark availability.
-- Set up private security and conduct contacts and dependency-license review.
-- Run the committed workflows in GitHub and review uploaded evidence.
-- Have several unfamiliar developers run the docs and reproduce failures.
-- Integrate one real application through its actual ingestion/retrieval APIs.
-- Review the candidate, configure publishing and authorize the public release.
-- Gather feedback from relevant maintainers; do not claim discovered upstream bugs
-  or publish promotional messages without an actual reproducible finding.
+See `releasing.md` for exact PyPI registration values, `feedback-study.md` for the
+independent-user protocol, `implementation-issues.json` for completed issues,
+and `launch.md` for the prepared launch draft. No external outreach was sent.
 
-A local prototype can establish repeatable observations. It cannot establish
-adoption, unique prior art, production correctness or market demand.
+Model migration changes known same-dimensional synthetic vectors. Tests do not
+establish semantic answer quality, physical erasure, distributed linearizability,
+untested query paths, real dimension-changing rebuilds or indefinite absence.
+The PyPI name returned HTTP 404 on October 26, 2026; that is not name reservation,
+trademark clearance or unique-prior-art proof.
