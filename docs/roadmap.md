@@ -19,17 +19,18 @@ as complete simply because implementation exists.
 | Repository and original five issues | Complete: public source; implementation issues #1–#5 created and closed |
 | Private security reporting | Complete: GitHub private vulnerability reporting enabled |
 | Release distributions | Complete: wheel/sdist built, checked, independently installed and exercised |
-| Hosted CI execution | Blocked: GitHub account billing lock prevents jobs from starting |
-| PyPI publishing | Blocked: owner needs a PyPI account and pending trusted-publisher registration |
+| Hosted CI execution | Complete: Python 3.11/3.12/3.13 and real database jobs passed on main |
+| PyPI publishing | Owner confirmed trusted publisher added; 0.2.0rc2 publication is being prepared |
 | Independent developer feedback | Pending: no participants have provided results yet |
 | External user's production/staging application | Pending: LangChain API coverage is not independent validation of an existing user's application |
 
-Hosted CI attempt:
-https://github.com/sanketsinghai/recallfsck/actions/runs/40370585154
+Successful hosted CI:
+https://github.com/sanketsinghai/recallfsck/actions/runs/40374759837
 
-GitHub's exact annotation: “The job was not started because your account is locked
-due to a billing issue.” No hosted test step ran. The local suite passed **55 tests
-and 120 repeated subtests**, including real databases and LangChain integration.
+The earlier billing lock is resolved. PR #9 fixed the installed HTTP demo command.
+The full database job passed **55 tests and 120 repeated subtests**, including
+real databases and LangChain integration. The Python matrix passed with optional
+database tests covered separately in the dedicated database job.
 
 See `releasing.md` for exact PyPI registration values, `feedback-study.md` for the
 independent-user protocol, `implementation-issues.json` for completed issues,

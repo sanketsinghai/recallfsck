@@ -1,6 +1,6 @@
 # Release procedure
 
-Candidate version: 0.2.0rc1. Repository:
+Candidate version: 0.2.0rc2. Repository:
 https://github.com/sanketsinghai/recallfsck
 
 1. Run hosted CI and review actual adapter evidence.
@@ -16,8 +16,9 @@ https://github.com/sanketsinghai/recallfsck
    distributions and uses OIDC trusted publishing. Passwords and API tokens are
    not stored in the repository or requested in chat.
 
-The owner is currently creating or signing into a PyPI account. No PyPI upload
-is claimed until the account-side publisher registration and upload succeed.
+The owner has created a PyPI account and confirmed that the pending trusted
+publisher was added. The workflow's successful upload and an independent package
+download are required before recording publication as complete.
 
 Name checks are point-in-time observations, not reservations or trademark
 clearance. `dependency-inventory.json` records installed validation-environment
