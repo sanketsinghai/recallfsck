@@ -14,7 +14,7 @@ recallfsck demo
 ```
 
 [PyPI release](https://pypi.org/project/recallfsck/) ·
-[Publishing checks](https://github.com/sanketsinghai/recallfsck/actions/runs/40375794561)
+[Publishing checks](https://github.com/sanketsinghai/recallfsck/actions/runs/40436999378)
 
 New to the project? Follow the [first-run guide](docs/try-it.md) to install,
 inspect the expected failure and replay it without Docker or API keys.

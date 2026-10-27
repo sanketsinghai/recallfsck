@@ -120,3 +120,23 @@ Current and legacy reports share the writer; unknown legacy timing remains
 unrecorded. The publish workflow gates upload on exact-artifact wheel tests on
 Python 3.11–3.13. Hosted results and publication are recorded separately after
 those jobs complete; local success alone does not claim those future outcomes.
+
+## Correction release publication verified
+
+0.2.0rc3 is public at https://pypi.org/project/recallfsck/0.2.0rc3/ .
+Workflow https://github.com/sanketsinghai/recallfsck/actions/runs/40436999378
+passed all 12 jobs, including source tests, real backends, three built-wheel jobs,
+build, and tests of the identical upload wheel on Python 3.11, 3.12 and 3.13 before
+trusted publication. The three verification receipts share the published wheel's
+SHA-256 hash. Both PyPI distribution hashes match the workflow build artifacts.
+
+A clean public-PyPI installation passed seven reconstructed adapter QA
+expectations (2 PASS / 5 detected FAIL), the parsed HTML identity regression,
+standard CLI demo and dependency checks. That installed package also passed all
+four actual Open WebUI lifecycle checks using the shipped Compose recipe.
+The published PyPI description was fetched and checked: the rc3 install command
+is present and obsolete HTTP-404 availability wording is absent.
+
+The private local walkthrough remains excluded from Git and was confirmed absent
+from the published source distribution. Independent user feedback and stable
+0.2.0 remain separate pending outcomes.
