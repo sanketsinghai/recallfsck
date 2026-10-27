@@ -10,7 +10,7 @@ In a fresh folder, on macOS/Linux:
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install 'recallfsck==0.2.0rc2'
+python -m pip install 'recallfsck==0.2.0rc3'
 recallfsck demo
 ```
 
@@ -19,7 +19,7 @@ On Windows PowerShell:
 ```powershell
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install 'recallfsck==0.2.0rc2'
+python -m pip install 'recallfsck==0.2.0rc3'
 recallfsck demo
 ```
 

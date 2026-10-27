@@ -7,7 +7,9 @@ import json
 import os
 import re
 import sys
+import time
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 
 from .reporting import write_reports
 from .stores import store_factory
@@ -21,6 +23,29 @@ DEFAULTS = {
     "poll_seconds": 0.01,
     "output": "report",
 }
+
+
+def diagnostic(error, backend):
+    """Actionable error hints without persisting driver messages or credentials."""
+    hint = "Check configuration keys, artifact backend/version and timing limits; see docs/usage.md."
+    if isinstance(error, HTTPError):
+        hint = f"Backend returned HTTP {error.code}; check service version, API support and endpoint configuration."
+    elif isinstance(error, (URLError, ConnectionError, TimeoutError)):
+        hint = "Check that the disposable service is running and reachable at the configured endpoint."
+    elif isinstance(error, ImportError):
+        extra = (
+            {"chroma": "chroma", "pgvector": "pgvector"}.get(backend) if isinstance(backend, str) else None
+        )
+        hint = (
+            f"Install the optional dependency with: python -m pip install 'recallfsck[{extra}]'."
+            if extra
+            else "Check that the explicit --app module is installed and its optional dependencies are available."
+        )
+    return {
+        "type": type(error).__name__,
+        "message": "Execution failed; no integrity verdict was established.",
+        "hint": hint,
+    }
 
 
 def load_config(path):
@@ -144,6 +169,7 @@ def main(argv=None):
             specs = [(worker, name, SCENARIOS[name]) for worker in workers for name in names]
         cases = []
         for worker, name, schedule in specs:
+            started = time.perf_counter()
             try:
                 if args.command == "minimize":
                     result = asyncio.run(minimize(factory, artifact, app_factory=app_factory, **timing))
@@ -162,30 +188,55 @@ def main(argv=None):
                     "scenario": name,
                     "schedule": schedule,
                     "status": "ERROR",
-                    "error": {
-                        "type": type(error).__name__,
-                        "message": "Execution failed; inspect adapter configuration and service availability.",
-                    },
+                    "error": diagnostic(error, options["backend"]),
                 }
-                print(f"ERROR {worker} {name}: {type(error).__name__}", file=sys.stderr)
+                print(
+                    f"ERROR {worker} {name}: {type(error).__name__}. {result['error']['hint']}",
+                    file=sys.stderr,
+                )
+            result["duration_seconds"] = time.perf_counter() - started
             cases.append(result)
             print(f"{result['status']:5} {worker:14} {name}")
-        write_reports(cases, options["output"])
+        expected_failures = {"delete-during-index", "update-during-index", "migration-during-index"}
+        matches = args.command == "demo" and all(
+            case["status"]
+            == ("FAIL" if case["worker"] == "buggy" and case["scenario"] in expected_failures else "PASS")
+            for case in cases
+        )
+        write_reports(
+            cases, options["output"], context={"command": args.command, "demo_outcomes_matched": matches}
+        )
         if any(case["status"] == "ERROR" for case in cases):
             return 2
         if args.command == "demo":
-            expected_failures = {"delete-during-index", "update-during-index", "migration-during-index"}
-            matches = all(
-                case["status"]
-                == ("FAIL" if case["worker"] == "buggy" and case["scenario"] in expected_failures else "PASS")
-                for case in cases
-            )
             print("Demo matched expected red/green outcomes." if matches else "Unexpected demo outcomes.")
             return 0 if matches else 1
         return int(any(case["status"] == "FAIL" for case in cases))
     except Exception as error:
+        detail = diagnostic(error, options.get("backend"))
         print(
-            f"ERROR: {type(error).__name__}: invalid input, missing optional dependency, or service unavailable. See docs/usage.md.",
+            f"ERROR: {type(error).__name__}. {detail['hint']}",
             file=sys.stderr,
         )
+        if args.command != "init":
+            try:
+                backend = options.get("backend")
+                write_reports(
+                    [
+                        {
+                            "backend": backend
+                            if backend in ("sqlite", "qdrant", "chroma", "pgvector")
+                            else "unknown",
+                            "application": args.app or "fixture",
+                            "worker": "configuration",
+                            "scenario": "input-validation",
+                            "status": "ERROR",
+                            "error": detail,
+                        }
+                    ],
+                    options["output"],
+                    context={"command": args.command},
+                )
+            except (OSError, TypeError, ValueError):
+                pass
         return 2

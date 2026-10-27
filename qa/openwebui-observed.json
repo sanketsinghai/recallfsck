@@ -1,0 +1,47 @@
+{
+  "application": "Open WebUI",
+  "version": {
+    "version": "0.12.4",
+    "deployment_id": ""
+  },
+  "repository": "https://github.com/open-webui/open-webui",
+  "source_commit": "33c1978d5bad52a31df75ea55143025dfad18d16",
+  "image": "ghcr.io/open-webui/open-webui:v0.12.4-slim",
+  "image_digests": [
+    "ghcr.io/open-webui/open-webui@sha256:41812075aede8ada8497cb2b71c76412978633eee72775bb77796f593d03b677"
+  ],
+  "execution": "Author-run real application trial, not independent participant validation",
+  "embedding_provider": "Deterministic local 64-dimensional synthetic provider; no external model or answer-quality test",
+  "covered": [
+    "create-and-retrieve",
+    "replace-no-stale-revision",
+    "repeat-index-no-duplicates",
+    "delete-removes-index-records"
+  ],
+  "not_tested": [
+    "Tenant isolation (authentication disabled in isolated instance)",
+    "Controlled indexing races (no pause/resume hooks installed)",
+    "Embedding migration",
+    "LLM answer quality",
+    "Long-term deletion absence"
+  ],
+  "application_source_changes": "None; unmodified upstream container and its actual APIs/index were used",
+  "results": [
+    {
+      "scenario": "create-and-retrieve",
+      "status": "PASS"
+    },
+    {
+      "scenario": "replace-no-stale-revision",
+      "status": "PASS"
+    },
+    {
+      "scenario": "repeat-index-no-duplicates",
+      "status": "PASS"
+    },
+    {
+      "scenario": "delete-removes-index-records",
+      "status": "PASS"
+    }
+  ]
+}

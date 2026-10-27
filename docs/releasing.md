@@ -1,6 +1,6 @@
 # Release procedure
 
-Candidate version: 0.2.0rc2. Repository:
+Candidate version: 0.2.0rc3. Repository:
 https://github.com/sanketsinghai/recallfsck
 
 1. Run hosted CI and review actual adapter evidence.
@@ -31,7 +31,7 @@ A prepared launch post in `launch.md` has not been submitted to external forums.
 
 ## Stable 0.2.0 readiness
 
-Keep 0.2.0rc2 available for trials while collecting adoption evidence. Release
+Use the latest validated release candidate for trials while collecting adoption evidence. Release
 0.2.0 after reviewing these criteria; a version rename alone does not supply it:
 
 - Several developers unfamiliar with the implementation can install, run and
@@ -58,3 +58,8 @@ as stable. These are future release steps, not actions already completed.
 The existing 0.2.0rc2 package is immutable. Editing the repository README prepares
 the correction for the next package upload; it does not change that version's
 already published description.
+
+Before any upload, the publish workflow installs the exact build artifact and runs
+seven-case QA, reporting regression, CLI, replay, HTTP, JSON and JUnit checks on
+Python 3.11, 3.12 and 3.13. The Open WebUI trial does not replace independent
+participant reports; stable 0.2.0 remains gated on the readiness criteria above.

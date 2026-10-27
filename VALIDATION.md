@@ -97,3 +97,26 @@ red/green outcomes; saved failure replay returned the expected exit code 1;
 the packaged HTTP demo passed; `pip check` reported no broken dependencies.
 Both distribution SHA-256 hashes matched the exact workflow build artifacts.
 See `docs/pypi-publication.json` for a machine-readable receipt.
+
+## 0.2.0rc3 review corrections — October 27, 2026
+
+The local full-backend regression suite passed **67 tests and 120 repeated
+subtests**, including new report identity/count/timing/XML/input-error tests.
+The reconstructed seven-case QA ran against the actual installed published
+0.2.0rc2 wheel: two correct application verdicts passed and five injected faults
+were detected. Its QA expectations matched 7/7. The HTML identity regression
+failed on that original distribution as expected, then passed with the correction.
+The original review archive was not supplied; these are reconstructed controls.
+
+An unmodified pinned Open WebUI v0.12.4 container passed four bounded API/index
+checks: create/retrieve, replacement, repeat-index idempotency and deletion.
+The application used its own pgvector index, inspected separately. The trial used
+synthetic local embeddings and did not test tenant isolation, controlled races,
+migration or answer quality. This is author-run third-party application evidence,
+not independent participant feedback. See qa/openwebui-observed.json.
+
+The corrected HTML was rendered in headless Chrome and visually inspected.
+Current and legacy reports share the writer; unknown legacy timing remains
+unrecorded. The publish workflow gates upload on exact-artifact wheel tests on
+Python 3.11–3.13. Hosted results and publication are recorded separately after
+those jobs complete; local success alone does not claim those future outcomes.

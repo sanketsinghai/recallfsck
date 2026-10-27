@@ -353,3 +353,24 @@ def test_real_langchain_chroma_integration():
                 else "PASS"
             )
             assert case["status"] == expected, (worker, name, case["first_divergence"])
+
+
+def test_input_errors_produce_standard_error_evidence(tmp_path):
+    config = tmp_path / "invalid.yaml"
+    config.write_text("backend: sqlite\nscenarios: [not-a-scenario]\n")
+    assert main(["test", "--config", str(config), "--output", str(tmp_path)]) == 2
+    manifest = json.loads((tmp_path / "report.json").read_text())
+    assert manifest["counts"] == {"total": 1, "pass": 0, "fail": 0, "error": 1}
+    assert "hint" in manifest["cases"][0]["error"]
+
+
+def test_diagnostic_redacts_driver_url_and_includes_safe_http_status():
+    from urllib.error import HTTPError
+
+    from recallfsck.product_cli import diagnostic
+
+    result = diagnostic(
+        HTTPError("https://user:secret@example.com", 503, "private token secret", {}, None), "qdrant"
+    )
+    assert "503" in result["hint"]
+    assert "secret" not in json.dumps(result)

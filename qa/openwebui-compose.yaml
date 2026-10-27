@@ -1,0 +1,47 @@
+name: recallfsck-openwebui-trial
+services:
+  embeddings:
+    image: python:3.12-slim
+    command: [python, /qa/openwebui_embedding_server.py]
+    volumes:
+      - ./openwebui_embedding_server.py:/qa/openwebui_embedding_server.py:ro
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_PASSWORD: recallfsck-local-only
+      POSTGRES_DB: openwebui
+    volumes:
+      - ../examples/init-vector.sql:/docker-entrypoint-initdb.d/init-vector.sql:ro
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -h 127.0.0.1 -U postgres -d openwebui']
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:v0.12.4-slim@sha256:41812075aede8ada8497cb2b71c76412978633eee72775bb77796f593d03b677
+    ports: ['127.0.0.1:18080:8080']
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      WEBUI_AUTH: 'False'
+      WEBUI_SECRET_KEY: recallfsck-disposable-qa-key
+      ENABLE_PERSISTENT_CONFIG: 'False'
+      RAG_EMBEDDING_ENGINE: openai
+      RAG_EMBEDDING_MODEL: recallfsck-synthetic-v1
+      RAG_OPENAI_API_BASE_URL: http://embeddings:8081/v1
+      RAG_OPENAI_API_KEY: synthetic-local-only
+      ENABLE_RAG_HYBRID_SEARCH: 'False'
+      ENABLE_OLLAMA_API: 'False'
+      ENABLE_OPENAI_API: 'False'
+      VECTOR_DB: pgvector
+      PGVECTOR_DB_URL: postgresql://postgres:recallfsck-local-only@postgres:5432/openwebui
+      OFFLINE_MODE: 'True'
+      HF_HUB_OFFLINE: '1'
+      DO_NOT_TRACK: 'True'
+      ANONYMIZED_TELEMETRY: 'False'
+    healthcheck:
+      test: [CMD, python, -c, 'from urllib.request import urlopen; urlopen("http://127.0.0.1:8080/health", timeout=5)']
+      interval: 5s
+      timeout: 8s
+      retries: 36

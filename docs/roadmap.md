@@ -22,7 +22,7 @@ as complete simply because implementation exists.
 | Hosted CI execution | Complete: Python 3.11/3.12/3.13 and real database jobs passed on main |
 | PyPI publishing | Complete: 0.2.0rc2 published through trusted publishing; clean PyPI installation, demo, replay and HTTP checks passed |
 | Independent developer feedback | Pending: no participants have provided results yet |
-| External user's production/staging application | Pending: LangChain API coverage is not independent validation of an existing user's application |
+| Independently maintained application trial | Executed: four bounded author-run checks against unmodified Open WebUI v0.12.4; independent adopter/team feedback remains pending |
 
 Successful hosted CI:
 https://github.com/sanketsinghai/recallfsck/actions/runs/40374759837
@@ -48,5 +48,7 @@ Model migration changes known same-dimensional synthetic vectors. Tests do not
 establish semantic answer quality, physical erasure, distributed linearizability,
 untested query paths, real dimension-changing rebuilds or indefinite absence.
 The next priority is independent testing and adoption, rather than additional
-features. The published candidate remains 0.2.0rc2. Stable 0.2.0 readiness is
+features. The next corrected candidate is 0.2.0rc3. Stable 0.2.0 readiness is
 tracked in `releasing.md`; no independent validation is claimed yet.
+
+The review corrections and seven-case QA provenance are recorded in `review-corrections.md`.

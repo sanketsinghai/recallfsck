@@ -9,11 +9,11 @@ retrieval with an independent reference model, and saves a replayable failure.
 Install the published release candidate with Python 3.11+:
 
 ```sh
-python -m pip install 'recallfsck==0.2.0rc2'
+python -m pip install 'recallfsck==0.2.0rc3'
 recallfsck demo
 ```
 
-[PyPI release](https://pypi.org/project/recallfsck/0.2.0rc2/) ·
+[PyPI release](https://pypi.org/project/recallfsck/) ·
 [Publishing checks](https://github.com/sanketsinghai/recallfsck/actions/runs/40375794561)
 
 New to the project? Follow the [first-run guide](docs/try-it.md) to install,
@@ -27,7 +27,8 @@ The corrected worker passes all ten. Demo exits 0 only when that exact pattern i
 observed. The evidence still labels the buggy cases FAIL.
 
 Open `report/index.html`; each case also has JSON evidence. `report/junit.xml`
-records failures for CI. These are executed results, not illustrative screenshots.
+records failures for CI. `report/report.json` adds a versioned run manifest;
+Application and Worker are separate report columns. See the [report format](docs/report-format.md). These are executed results, not illustrative screenshots.
 
 ```sh
 recallfsck init --adapter sqlite
@@ -152,3 +153,13 @@ In this integration, writes, deletion, embedding and retrieval call the actual
 LangChain Chroma vector-store APIs. The controlled ingestion scheduling and the
 injected bugs belong to RecallFSCK's demonstration application. No upstream
 LangChain defect or production application correctness is claimed.
+
+## Open WebUI trial
+
+A pinned, unmodified Open WebUI v0.12.4 instance was exercised through its actual
+file-ingestion, replacement, retrieval and deletion APIs, with its own pgvector
+index inspected separately. Four bounded checks passed. The trial uses a local
+synthetic embedding provider; it does not validate LLM answers, tenant isolation
+or controlled races. See [the reproducible trial](qa/README.md#actual-open-webui-application-trial)
+and [review corrections](docs/review-corrections.md) for evidence and limitations.
+This is author-run application evidence, not independent adopter feedback.
