@@ -20,7 +20,7 @@ as complete simply because implementation exists.
 | Private security reporting | Complete: GitHub private vulnerability reporting enabled |
 | Release distributions | Complete: wheel/sdist built, checked, independently installed and exercised |
 | Hosted CI execution | Complete: Python 3.11/3.12/3.13 and real database jobs passed on main |
-| PyPI publishing | Complete: 0.2.0rc2 published through trusted publishing; clean PyPI installation, demo, replay and HTTP checks passed |
+| PyPI publishing | Complete: 0.2.0rc3 published through trusted publishing; the exact upload wheel passed Python 3.11–3.13 verification and clean public-PyPI QA |
 | Independent developer feedback | Pending: no participants have provided results yet |
 | Independently maintained application trial | Executed: four bounded author-run checks against unmodified Open WebUI v0.12.4; independent adopter/team feedback remains pending |
 
@@ -28,10 +28,10 @@ Successful hosted CI:
 https://github.com/sanketsinghai/recallfsck/actions/runs/40374759837
 
 Successful publication:
-https://github.com/sanketsinghai/recallfsck/actions/runs/40375794561
+https://github.com/sanketsinghai/recallfsck/actions/runs/40436999378
 
 Published package:
-https://pypi.org/project/recallfsck/0.2.0rc2/
+https://pypi.org/project/recallfsck/0.2.0rc3/
 Distribution hashes were verified against public PyPI metadata; see
 `pypi-publication.json` for the receipt.
 
@@ -48,7 +48,7 @@ Model migration changes known same-dimensional synthetic vectors. Tests do not
 establish semantic answer quality, physical erasure, distributed linearizability,
 untested query paths, real dimension-changing rebuilds or indefinite absence.
 The next priority is independent testing and adoption, rather than additional
-features. The next corrected candidate is 0.2.0rc3. Stable 0.2.0 readiness is
+features. The latest published candidate is 0.2.0rc3. Stable 0.2.0 readiness is
 tracked in `releasing.md`; no independent validation is claimed yet.
 
 The review corrections and seven-case QA provenance are recorded in `review-corrections.md`.

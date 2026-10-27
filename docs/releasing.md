@@ -16,7 +16,7 @@ https://github.com/sanketsinghai/recallfsck
    distributions and uses OIDC trusted publishing. Passwords and API tokens are
    not stored in the repository or requested in chat.
 
-Version 0.2.0rc2 is published at https://pypi.org/project/recallfsck/0.2.0rc2/ .
+Version 0.2.0rc3 is published at https://pypi.org/project/recallfsck/0.2.0rc3/ .
 The workflow completed successfully and a clean public-PyPI installation passed
 the demo, failure replay, HTTP demo and dependency check. Distribution hashes
 match the workflow artifacts. See `pypi-publication.json` for the receipt.
@@ -55,9 +55,8 @@ tag `v0.2.0`, and use the existing trusted-publishing workflow. Verify
 flag or pin, and confirm the installed version is 0.2.0. Mark its GitHub release
 as stable. These are future release steps, not actions already completed.
 
-The existing 0.2.0rc2 package is immutable. Editing the repository README prepares
-the correction for the next package upload; it does not change that version's
-already published description.
+The existing 0.2.0rc2 package is immutable. The corrected description ships in
+0.2.0rc3; the older version's description remains a historical artifact.
 
 Before any upload, the publish workflow installs the exact build artifact and runs
 seven-case QA, reporting regression, CLI, replay, HTTP, JSON and JUnit checks on
