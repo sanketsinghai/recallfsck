@@ -17,7 +17,7 @@ def verify(wheel, output):
     root = Path(__file__).resolve().parent.parent
     expected_version = wheel.name.split("-")[1]
     with tempfile.TemporaryDirectory(prefix="recallfsck-wheel-") as temporary:
-        folder = Path(temporary)
+        folder = Path(temporary).resolve()
         venv.create(folder / "env", with_pip=True)
         python = folder / "env" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
         env = dict(os.environ)
@@ -33,7 +33,7 @@ def verify(wheel, output):
             "-c",
             "import recallfsck; from pathlib import Path; from importlib.metadata import version; "
             f"assert version('recallfsck') == {expected_version!r}; "
-            f"assert Path(recallfsck.__file__).is_relative_to({str(folder)!r}); "
+            f"assert Path(recallfsck.__file__).resolve().is_relative_to(Path({str(folder)!r}).resolve()); "
             "print('Exact installed wheel:', recallfsck.__file__)",
         )
         run(root / "qa/test_recallfsck_external.py", "--output", output / "seven-case")
