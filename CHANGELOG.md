@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.0rc3
+
+- Fix HTML Application/Worker column alignment and add regression coverage.
+- Standardize current/legacy HTML, JSON run manifests and JUnit reports with measured timings and safe diagnostics.
+- Reconstruct and execute seven described adapter QA cases with two passing states and five detected defects.
+- Verify exact wheel behavior on Python 3.11–3.13 before trusted publishing.
+- Exercise unmodified Open WebUI v0.12.4 ingestion/retrieval/update/delete with four bounded passing checks.
+
+
+- Remove the obsolete package-name availability note from the next release's PyPI description.
+- Add a first-run guide, independent-application evidence template and stable 0.2.0 readiness criteria.
+
 ## 0.2.0rc2
 
 - Fix hosted CI to use the installed HTTP application module.

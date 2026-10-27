@@ -18,7 +18,7 @@ jobs:
           python-version: '${{ matrix.python }}'
       - run: python -m pip install -e '.[test]'
       - run: ruff check .
-      - run: ruff format --check recallfsck tests examples
+      - run: ruff format --check recallfsck tests qa examples
       - run: python -m pytest -q --junitxml=report/tests.xml
       - run: recallfsck demo --output report/sqlite
       - run: recallfsck demo --app recallfsck.demo_http:create_application --output report/http
@@ -76,3 +76,24 @@ jobs:
         with:
           name: database-evidence
           path: report/
+  wheel:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '${{ matrix.python }}'
+      - run: python -m pip install build twine
+      - run: python -m build --wheel
+      - run: python -m twine check dist/*.whl
+      - run: python qa/check_wheel.py --wheel dist/*.whl --output report/wheel
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wheel-evidence-${{ matrix.python }}
+          path: |
+            report/wheel/
+            dist/*.whl

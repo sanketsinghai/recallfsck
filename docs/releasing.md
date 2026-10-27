@@ -1,6 +1,6 @@
 # Release procedure
 
-Candidate version: 0.2.0rc2. Repository:
+Candidate version: 0.2.0rc3. Repository:
 https://github.com/sanketsinghai/recallfsck
 
 1. Run hosted CI and review actual adapter evidence.
@@ -28,3 +28,38 @@ are not vendored; this inventory is not a legal compatibility certification.
 
 Independent feedback must come from real users, following `feedback-study.md`.
 A prepared launch post in `launch.md` has not been submitted to external forums.
+
+## Stable 0.2.0 readiness
+
+Use the latest validated release candidate for trials while collecting adoption evidence. Release
+0.2.0 after reviewing these criteria; a version rename alone does not supply it:
+
+- Several developers unfamiliar with the implementation can install, run and
+  explain the demo and replay using the published instructions. Record their
+  actual reports and fix onboarding problems they encounter.
+- At least one independently maintained RAG application is exercised through its
+  actual ingestion/deletion/retrieval paths. Record its repository/version,
+  adapter changes, hooks, scope and replayable evidence. Our supplied fixtures
+  and LangChain bridge do not satisfy this criterion by themselves.
+- Triage the resulting correctness and compatibility findings; resolve known
+  release-blocking defects or explicitly narrow unsupported scope.
+- Confirm the supported adapter contract, artifact compatibility and limitations
+  in the stable documentation. Include the corrected README in the distribution
+  so the obsolete HTTP 404 note disappears from the PyPI description.
+- Pass the Python matrix, real database jobs, package checks and clean public
+  installation checks for the final release commit.
+
+Then prepare version `0.2.0` on a branch, review its changelog, merge after CI,
+tag `v0.2.0`, and use the existing trusted-publishing workflow. Verify
+`python -m pip install recallfsck` in a fresh environment, with no prerelease
+flag or pin, and confirm the installed version is 0.2.0. Mark its GitHub release
+as stable. These are future release steps, not actions already completed.
+
+The existing 0.2.0rc2 package is immutable. Editing the repository README prepares
+the correction for the next package upload; it does not change that version's
+already published description.
+
+Before any upload, the publish workflow installs the exact build artifact and runs
+seven-case QA, reporting regression, CLI, replay, HTTP, JSON and JUnit checks on
+Python 3.11, 3.12 and 3.13. The Open WebUI trial does not replace independent
+participant reports; stable 0.2.0 remains gated on the readiness criteria above.

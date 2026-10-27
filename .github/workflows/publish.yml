@@ -36,8 +36,29 @@ jobs:
         with:
           name: publish-distributions
           path: dist/
-  publish:
+  verify-wheel:
     needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '${{ matrix.python }}'
+      - uses: actions/download-artifact@v4
+        with:
+          name: publish-distributions
+          path: dist/
+      - run: python qa/check_wheel.py --wheel dist/*.whl --output report/publish-wheel
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: exact-publish-wheel-${{ matrix.python }}
+          path: report/publish-wheel/
+  publish:
+    needs: [build, verify-wheel]
     runs-on: ubuntu-latest
     environment: ${{ inputs.destination }}
     permissions:

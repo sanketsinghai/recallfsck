@@ -4,4 +4,5 @@ recursive-include docs *.md
 recursive-include examples *.py *.sql
 recursive-include examples *.json
 recursive-include tests *.py
+recursive-include qa *.py *.md *.yaml *.json
 recursive-include .github *.yml *.md

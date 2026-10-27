@@ -73,3 +73,19 @@ Exit codes: 0 all expected checks pass (or demo matches its expected pattern),
 1 observed integrity violation, 2 configuration or execution error. In a demo,
 JUnit retains expected buggy failures even though the demo command returns 0.
 Use `test --worker fixed` as a CI regression gate.
+
+## Report format and execution diagnostics
+
+`report.json` adds a versioned run envelope; `summary.json` remains a case list for
+existing consumers. See [the report contract](report-format.md). The actual
+application identifier is separate from the fixture worker in HTML and JUnit.
+
+Durations are measured complete-case execution times. Legacy artifacts without
+a measurement say "Not recorded" rather than implying a zero-duration run.
+Standard reports also distinguish execution ERROR from integrity FAIL, and a demo
+whose expected failures match does not relabel those failures as passes.
+
+Execution errors now include safe hints for unreachable services, backend HTTP
+status, missing optional adapters and invalid input. Endpoint URLs, driver error
+text and credentials are not copied into these hints. Input validation failures
+produce a standard ERROR report when the chosen output directory is writable.
